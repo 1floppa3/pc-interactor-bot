@@ -37,4 +37,21 @@ namespace Telegram {
             throw std::runtime_error("sendMessage: HTTP " + std::to_string(response.status_code));
     }
 
+    void TelegramApi::sendPhoto(const int64_t chat_id, const std::string& file_path, const std::string& caption) const {
+        cpr::Multipart form = {
+            {"chat_id", std::to_string(chat_id)},
+            {"caption", caption},
+            {"photo", cpr::File{file_path}}
+        };
+
+        const cpr::Response response = Post(
+            cpr::Url{api_url_ + "sendPhoto"},
+            form
+        );
+
+        if (response.status_code != cpr::status::HTTP_OK) {
+            throw std::runtime_error("sendPhoto: HTTP " + std::to_string(response.status_code));
+        }
+    }
+
 }

@@ -1,33 +1,23 @@
 #include <iostream>
+#include <thread>
 #include <Bot/TelegramBot.h>
-#include <Commands/HelpCommand.h>
-#include <Commands/ShutdownPCCommand.h>
-#include <Commands/StartCommand.h>
+#include <Core/AppManager.h>
 #include <Core/Config.h>
 #include <Core/Logger.h>
-#include <Core/PrivilegeHelper.h>
+
+using App = Core::AppManager;
 
 int main() {
-    try {
-        Core::PrivilegeHelper::ensure_admin();
-    } catch (const std::exception& ex) {
-        LOG_ERROR("Privilege elevation failed: ", ex.what());
-        return 1;
-    }
+    App::init_console();
 
-    try {
-        Core::Config::load("../config.json");
-    } catch (std::exception& ex) {
-        LOG_ERROR("Error loading config: ", ex.what(), "\n");
-        return 1;
-    }
+    GUARD(App::ensure_admin(), "Privilege elevation failed");
+    GUARD(App::update_startup(), "Update start-up registry failed");
+    GUARD(Core::Config::load("config.json"), "Error loading config");
 
-    Bot::TelegramBot bot(Core::Config::get<std::string>("telegram_api_token"));
+    GUARD({
+        Bot::TelegramBot bot(Core::Config::get<std::string>("telegram_api_token"));
+        bot.run();
+    }, "Telegram bot execution failed");
 
-    bot.register_command<Commands::StartCommand>();
-    bot.register_command<Commands::HelpCommand>();
-    bot.register_command<Commands::ShutdownPCCommand>();
-
-    bot.run();
     return 0;
 }

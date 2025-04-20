@@ -15,6 +15,7 @@ namespace Telegram {
         [[nodiscard]] std::vector<Models::Update> getUpdates(int64_t offset, int timeout) const;
 
         void sendMessage(int64_t chat_id, const std::string& text) const;
+        void sendPhoto(int64_t chat_id, const std::string& file_path, const std::string& caption = "") const;
     };
 
 }

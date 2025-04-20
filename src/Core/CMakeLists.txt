@@ -1,6 +1,6 @@
 add_library(CoreLib
         Config.cpp
-        PrivilegeHelper.cpp
+        AppManager.cpp
 )
 target_include_directories(CoreLib
         PUBLIC ${CMAKE_SOURCE_DIR}/include

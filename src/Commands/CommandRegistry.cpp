@@ -1,6 +1,12 @@
 #include "Commands/CommandRegistry.h"
 
+#include <Commands/CameraCommand.h>
 #include <Commands/HelpCommand.h>
+#include <Commands/MonitorCommand.h>
+#include "Commands/SystemInfoCommand.h"
+#include <Commands/ScreenshotCommand.h>
+#include <Commands/ShutdownPCCommand.h>
+#include <Commands/StartCommand.h>
 #include <Core/Config.h>
 #include <Core/Logger.h>
 #include <Telegram/TelegramApi.h>
@@ -39,6 +45,16 @@ namespace Commands {
             const TelegramApi api(Core::Config::get<std::string>("telegram_api_token"));
             api.sendMessage(msg.chat_id, "Unknown command: " + cmd);
         }
+    }
+
+    void CommandRegistry::register_all_commands(TelegramApi& api) {
+        register_command(std::make_unique<StartCommand>(api));
+        register_command(std::make_unique<HelpCommand>(api));
+        register_command(std::make_unique<ShutdownPCCommand>(api));
+        register_command(std::make_unique<SystemInfoCommand>(api));
+        register_command(std::make_unique<MonitorCommand>(api));
+        register_command(std::make_unique<ScreenshotCommand>(api));
+        register_command(std::make_unique<CameraCommand>(api));
     }
 
 }

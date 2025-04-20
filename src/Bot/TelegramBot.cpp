@@ -12,6 +12,7 @@ namespace Bot {
     void TelegramBot::run() {
         LOG_INFO("Bot started");
         const int timeout = Core::Config::get<int>("long_polling_timeout");
+        Commands::CommandRegistry::instance().register_all_commands(api_);
         while (true) {
             try {
                 auto updates = api_.getUpdates(last_update_id_, timeout);

@@ -3,12 +3,28 @@ add_library(CommandsLib
         HelpCommand.cpp
         StartCommand.cpp
         ShutdownPCCommand.cpp
+        SystemInfoCommand.cpp
+        MonitorCommand.cpp
+        ScreenshotCommand.cpp
+        CameraCommand.cpp
 )
 target_include_directories(CommandsLib
-        PUBLIC ${CMAKE_SOURCE_DIR}/include
+        PUBLIC
+            ${CMAKE_SOURCE_DIR}/include
+            ${OPENCV_CONFIG_FILE_INCLUDE_DIR}
+            ${OPENCV_MODULE_opencv_core_LOCATION}/include
+            ${OPENCV_MODULE_opencv_highgui_LOCATION}/include
 )
 target_link_libraries(CommandsLib
         PUBLIC
-        CoreLib
-        TelegramLib
+            CoreLib
+            TelegramLib
+            ole32
+            oleaut32
+            wbemuuid
+            mf
+            shlwapi
+            mfuuid
+            mfreadwrite
+            mfplat
 )
