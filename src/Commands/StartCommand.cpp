@@ -9,7 +9,7 @@ namespace Commands {
         const bool is_admin = std::ranges::find(admins, msg.from.id) != admins.end();
         text += is_admin
              ? "You are an administrator. You can use the features of this bot ✅"
-             : "You are not an administrator. You can't use all the features of this bot ❌";
+             : "You are not an administrator. You can't use all the features of this bot ✖️";
         api_.sendMessage(chat_id, text);
     }
 

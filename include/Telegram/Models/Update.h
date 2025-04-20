@@ -29,7 +29,7 @@ namespace Telegram::Models {
             );
             message = msg;
         }
-        Update::Update() = default;
+        Update() = default;
     };
 
 }

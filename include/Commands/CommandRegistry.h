@@ -12,10 +12,10 @@ namespace Commands {
     class CommandRegistry {
         std::unordered_map<std::string, std::unique_ptr<ICommand>> cmds_;
     public:
+        static CommandRegistry& instance();
         void register_command(std::unique_ptr<ICommand> cmd);
         void handle(const Telegram::Models::Message& msg);
-        std::vector<std::string> list_commands() const;
-        static CommandRegistry& instance();
+        std::vector<ICommand*> list_commands() const;
     };
 
 }
