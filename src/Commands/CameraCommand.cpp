@@ -89,7 +89,7 @@ namespace Commands {
             out_type->Release();
         }
         if (FAILED(hr)) {
-            api_.sendMessage(chat_id, "❌ Не удалось задать формат RGB32");
+            api_.sendMessage(chat_id, "❌ Failed to set RGB32 format");
             reader->Release();
             MFShutdown();
             return;

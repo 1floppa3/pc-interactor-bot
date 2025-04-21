@@ -16,6 +16,7 @@ namespace Telegram {
 
         void sendMessage(int64_t chat_id, const std::string& text) const;
         void sendPhoto(int64_t chat_id, const std::string& file_path, const std::string& caption = "") const;
+        void sendDocument(int64_t chat_id, const std::string& file_path, const std::string& caption = "") const;
     };
 
 }

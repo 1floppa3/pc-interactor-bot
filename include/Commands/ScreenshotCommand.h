@@ -11,7 +11,7 @@ namespace Commands {
         explicit ScreenshotCommand(Telegram::TelegramApi& api) : api_(api) {}
 
         [[nodiscard]] std::string name() const override { return "/screenshot"; }
-        [[nodiscard]] std::string description() const override { return "Takes a screenshot and sends it"; }
+        [[nodiscard]] std::string description() const override { return "📸 Takes a screenshot of the main screen"; }
         [[nodiscard]] bool admin_only() const override { return true; }
 
         void execute(int64_t chat_id, const Telegram::Models::Message& msg) override;

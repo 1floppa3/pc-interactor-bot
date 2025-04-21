@@ -7,6 +7,13 @@ add_library(CommandsLib
         MonitorCommand.cpp
         ScreenshotCommand.cpp
         CameraCommand.cpp
+        LockCommand.cpp
+        MediaToggleCommand.cpp
+        MediaNextCommand.cpp
+        MediaPrevCommand.cpp
+        VolumeCommand.cpp
+        RunCommand.cpp
+        SayCommand.cpp
 )
 target_include_directories(CommandsLib
         PUBLIC
@@ -27,4 +34,5 @@ target_link_libraries(CommandsLib
             mfuuid
             mfreadwrite
             mfplat
+        sapi
 )

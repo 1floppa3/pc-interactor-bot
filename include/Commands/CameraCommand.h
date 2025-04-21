@@ -11,7 +11,7 @@ namespace Commands {
         explicit CameraCommand(Telegram::TelegramApi& api): api_(api) {}
 
         [[nodiscard]] std::string name() const override { return "/camera"; }
-        [[nodiscard]] std::string description() const override { return "Takes a photo from webcam and sends it"; }
+        [[nodiscard]] std::string description() const override { return "📷 Takes a snapshot from the webcam"; }
         [[nodiscard]] bool admin_only() const override { return true; }
 
         void execute(int64_t chat_id, const Telegram::Models::Message& msg) override;

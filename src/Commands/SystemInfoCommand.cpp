@@ -95,13 +95,6 @@ namespace Commands {
     }
 
     void SystemInfoCommand::execute(const int64_t chat_id, const Telegram::Models::Message& msg) {
-        auto admins = Core::Config::get<std::vector<int64_t>>("admin_ids");
-        const bool is_admin = std::ranges::find(admins, msg.from.id) != admins.end();
-        if (!is_admin) {
-            api_.sendMessage(chat_id, "❌ Forbidden. This command is for admins only.");
-            return;
-        }
-
         std::ostringstream out;
         out << "🖥️ Hostname: " << get_computer_name() << "\n";
         out << "👤 User: " << get_username() << "\n";

@@ -54,4 +54,20 @@ namespace Telegram {
         }
     }
 
+    void TelegramApi::sendDocument(const int64_t chat_id, const std::string& file_path, const std::string& caption) const {
+        cpr::Multipart multipart{
+            {"chat_id", std::to_string(chat_id)},
+            {"caption", caption},
+            {"document", cpr::File{file_path}}
+        };
+
+        const cpr::Response response = Post(
+            cpr::Url{api_url_ + "sendDocument"},
+            multipart
+        );
+
+        if (response.status_code != cpr::status::HTTP_OK)
+            throw std::runtime_error("sendDocument: HTTP " + std::to_string(response.status_code));
+    }
+
 }

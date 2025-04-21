@@ -11,7 +11,7 @@ namespace Commands {
         explicit SystemInfoCommand(Telegram::TelegramApi& api) : api_(api) {}
 
         [[nodiscard]] std::string name() const override { return "/systeminfo"; }
-        [[nodiscard]] std::string description() const override { return "Shows general system information"; }
+        [[nodiscard]] std::string description() const override { return "🧩 Shows detailed system hardware info"; }
         [[nodiscard]] bool admin_only() const override { return true; }
 
         void execute(int64_t chat_id, const Telegram::Models::Message& msg) override;
