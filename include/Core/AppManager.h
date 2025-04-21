@@ -21,21 +21,16 @@ namespace Core {
 
 
     class AppManager {
-        static constexpr auto app_name_ = L"PCInteractorBot";
-
-
-        static std::wstring get_program_path();
-
         static bool check_admin();
         static bool relaunch_as_admin();
-
-        static long write_to_registry(const std::wstring& key, const std::wstring& path);
-        static bool is_path_in_registry(const std::wstring& program_name, std::wstring& current_path);
 
     public:
         static void init_console();
         static void ensure_admin();
         static void update_startup();
+
+        static std::wstring get_program_path();
+        static std::wstring get_program_dir();
 
         static void hold_exit();
     };

@@ -10,14 +10,17 @@
 
 namespace Commands {
 
-    class CommandRegistry {
+    class CommandDispatcher {
         std::unordered_map<std::string, std::unique_ptr<ICommand>> cmds_;
     public:
-        static CommandRegistry& instance();
-        void register_command(std::unique_ptr<ICommand> cmd);
-        void handle(const Telegram::Models::Message& msg);
+        static CommandDispatcher& instance();
+
         std::vector<ICommand*> list_commands() const;
+        void register_command(std::unique_ptr<ICommand> cmd);
         void register_all_commands(Telegram::TelegramApi& api);
+
+        void handle(const Telegram::TelegramApi& api, const Telegram::Models::Message& msg);
+        void handle_callback(const Telegram::Models::CallbackQuery &cq);
     };
 
 }

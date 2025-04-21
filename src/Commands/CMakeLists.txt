@@ -1,8 +1,8 @@
 add_library(CommandsLib
-        CommandRegistry.cpp
+        CommandDispatcher.cpp
         HelpCommand.cpp
         StartCommand.cpp
-        ShutdownPCCommand.cpp
+        ShutdownCommand.cpp
         SystemInfoCommand.cpp
         MonitorCommand.cpp
         ScreenshotCommand.cpp
@@ -14,25 +14,15 @@ add_library(CommandsLib
         VolumeCommand.cpp
         RunCommand.cpp
         SayCommand.cpp
+        SleepCommand.cpp
+        HibernateCommand.cpp
+        ProcessesCommand.cpp
+        FindCommand.cpp
+        KillCommand.cpp
 )
 target_include_directories(CommandsLib
-        PUBLIC
-            ${CMAKE_SOURCE_DIR}/include
-            ${OPENCV_CONFIG_FILE_INCLUDE_DIR}
-            ${OPENCV_MODULE_opencv_core_LOCATION}/include
-            ${OPENCV_MODULE_opencv_highgui_LOCATION}/include
+        PUBLIC ${CMAKE_SOURCE_DIR}/include
 )
 target_link_libraries(CommandsLib
-        PUBLIC
-            CoreLib
-            TelegramLib
-            ole32
-            oleaut32
-            wbemuuid
-            mf
-            shlwapi
-            mfuuid
-            mfreadwrite
-            mfplat
-        sapi
+        PUBLIC CoreLib TelegramLib
 )

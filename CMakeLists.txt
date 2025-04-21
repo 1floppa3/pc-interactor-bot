@@ -25,12 +25,16 @@ FetchContent_Declare(fmt
         GIT_TAG         123913715afeb8a437e6388b4473fcc4753e1c9a) # 11.1.4
 FetchContent_MakeAvailable(fmt)
 
+# ICO
+set(APP_ICON_RESOURCE "${CMAKE_SOURCE_DIR}/resources/favicon.rc")
+enable_language(RC)
+
+
 add_subdirectory(src/Core)
 add_subdirectory(src/Telegram)
 add_subdirectory(src/Commands)
 add_subdirectory(src/Bot)
 
 add_executable(pc_interactor_bot "src/main.cpp")
-target_link_libraries(pc_interactor_bot
-        PRIVATE CoreLib TelegramLib CommandsLib BotLib
-)
+target_link_libraries(pc_interactor_bot PRIVATE CoreLib TelegramLib CommandsLib BotLib)
+target_sources(pc_interactor_bot PRIVATE ${APP_ICON_RESOURCE})

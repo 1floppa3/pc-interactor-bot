@@ -1,15 +1,13 @@
 #include <Commands/LockCommand.h>
-#include <Core/Config.h>
-
-#include <Windows.h>
+#include <Core/SystemController.h>
 
 namespace Commands {
 
     void LockCommand::execute(const int64_t chat_id, const Telegram::Models::Message &msg) {
-        if (LockWorkStation())
-            api_.sendMessage(chat_id, "🔒 Workstation locked");
+        if (Core::SystemController::lock())
+            api_.sendMessage(chat_id, "<b>🔒 PC locked</b>");
         else
-            api_.sendMessage(chat_id, "❌ Failed to lock workstation");
+            api_.sendMessage(chat_id, "<b>❌ Failed to lock PC</b>");
     }
 
 

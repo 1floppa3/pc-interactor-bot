@@ -1,8 +1,6 @@
 #include <Commands/SayCommand.h>
-
-#include <Windows.h>
-#include <sapi.h>
-#include <Utils/Convert.h>
+#include <Core/SystemController.h>
+#include <Utils/String.h>
 
 namespace Commands {
 
@@ -10,27 +8,17 @@ namespace Commands {
         const std::string& text = msg.text;
         const size_t space_pos = text.find(' ');
         if (space_pos == std::string::npos || space_pos + 1 >= text.size()) {
-            api_.sendMessage(chat_id, "⚠️ Usage: /say <text>");
+            api_.sendMessage(chat_id, "<b>⚠️ Usage</b>: <code>/say &lt;text&gt;</code>");
             return;
         }
 
-        const auto text_to_speech = std::string(text.begin() + static_cast<long long>(space_pos) + 1, text.end());
+        const auto to_speech = std::string(text.begin() + static_cast<long long>(space_pos) + 1, text.end());
+        if (Core::SystemController::say_text(to_speech))
+            api_.sendMessage(chat_id, "<b>🗣️ Speaking:</b> <code>" + Utils::html_escape(to_speech) + "</code>");
+        else
+            api_.sendMessage(chat_id,  "<b>⚠️ Speaking error occurred</b>\n<code>" +
+                                        Utils::html_escape(to_speech) + "</code>");
 
-        ISpVoice* voice = nullptr;
-        if (FAILED(::CoInitialize(nullptr))) {
-            api_.sendMessage(chat_id, "❌ CoInitialize failed");
-            return;
-        }
-        if (FAILED(::CoCreateInstance(CLSID_SpVoice, nullptr, CLSCTX_ALL, IID_ISpVoice, reinterpret_cast<void **>(&voice)))) {
-            api_.sendMessage(chat_id, "❌ Failed to create voice instance");
-            CoUninitialize();
-            return;
-        }
-
-        api_.sendMessage(chat_id, "🗣️ Speaking: " + text_to_speech);
-        voice->Speak(Utils::s2ws(text_to_speech).c_str(), SPF_DEFAULT, nullptr);
-        voice->Release();
-        CoUninitialize();
     }
 
 

@@ -6,12 +6,12 @@
 
 namespace Commands {
 
-    class ShutdownPCCommand final : public ICommand {
+    class ShutdownCommand final : public ICommand {
         Telegram::TelegramApi& api_;
     public:
-        explicit ShutdownPCCommand(Telegram::TelegramApi& api): api_(api) {}
+        explicit ShutdownCommand(Telegram::TelegramApi& api): api_(api) {}
 
-        [[nodiscard]] std::string name() const override { return "/shutdown_pc"; }
+        [[nodiscard]] std::string name() const override { return "/shutdown"; }
         [[nodiscard]] std::string description() const override { return "⚠️ Shut down the PC"; }
         [[nodiscard]] bool admin_only() const override { return true; }
 

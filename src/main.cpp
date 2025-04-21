@@ -1,5 +1,3 @@
-#include <iostream>
-#include <thread>
 #include <Bot/TelegramBot.h>
 #include <Core/AppManager.h>
 #include <Core/Config.h>
@@ -8,11 +6,12 @@
 using App = Core::AppManager;
 
 int main() {
-    App::init_console();
-
+    GUARD(App::init_console(), "Console initialization failed");
     GUARD(App::ensure_admin(), "Privilege elevation failed");
     GUARD(App::update_startup(), "Update start-up registry failed");
-    GUARD(Core::Config::load("config.json"), "Error loading config");
+
+    const std::wstring config_path = Core::AppManager::get_program_dir() + L"\\config.json";
+    GUARD(Core::Config::load(Utils::ws2s(config_path)), "Error loading config");
 
     GUARD({
         Bot::TelegramBot bot(Core::Config::get<std::string>("telegram_api_token"));

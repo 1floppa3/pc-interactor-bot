@@ -3,8 +3,6 @@
 #include <sstream>
 #include <fmt/color.h>
 
-#include "windows.h"
-
 namespace Core {
 
     class Logger {

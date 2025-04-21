@@ -1,5 +1,9 @@
 {
+    "bot_name": "PC Interactor",
+    "bot_description": "💻 Control your PC remotely via Telegram",
+    "bot_short_description": "Remote computer control",
     "telegram_api_token": "Token",
     "admin_ids": [509056798],
-    "long_polling_timeout": 30
+    "long_polling_timeout": 30,
+    "skip_old_updates": true
 }
