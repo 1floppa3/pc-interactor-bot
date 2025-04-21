@@ -1,0 +1,5 @@
+{
+    "telegram_api_token": "Token",
+    "admin_ids": [509056798],
+    "long_polling_timeout": 30
+}
